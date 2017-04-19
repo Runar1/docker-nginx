@@ -43,4 +43,7 @@ RUN \
 	php7-pdo_mysql \
 	php7-pdo_sqlite \
 	php7-sockets \
-	php7-xml
+	php7-xml && \
+ apk add --no-cache \
+	--repository=http://nl.alpinelinux.org/alpine/edge/testing \
+	php7-mongodb
