@@ -29,6 +29,10 @@ RUN \
 	nginx-vim && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/main \
+	autoconf \
+	g++ \
+	make \
+	openssl-dev \
 	libwebp && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/community \
@@ -43,7 +47,10 @@ RUN \
 	php7-pdo_mysql \
 	php7-pdo_sqlite \
 	php7-sockets \
-	php7-xml && \
- apk add --no-cache \
-	--repository=http://nl.alpinelinux.org/alpine/edge/testing \
-	php7-mongodb
+	php7-xml \
+	php7-pear \
+	php7-dev
+
+RUN sed -i "$ s|\-n||g" /usr/bin/pecl
+RUN pecl install mongodb
+RUN echo "extension=mongodb.so" >> `php7 --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
